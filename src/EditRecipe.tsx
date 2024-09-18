@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import fetchEdit from "./App";
 
 type Recipe = {
   id: number;
@@ -32,7 +31,7 @@ export default function editRecipe({
   const [updateName, setUpdateName] = useState(name);
   const [updateDescription, setUpdateDescription] = useState(description);
   const [showModal, setModal] = useState(false);
-  //tie in inform. from db.json
+
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
 
@@ -44,7 +43,6 @@ export default function editRecipe({
       description: updateDescription,
     };
 
-    fetchEdit(updatedRecipe);
     onEdit(updatedRecipe);
     handleClose();
   };

@@ -29,28 +29,30 @@ export default function RecipeCard({
   onEdit,
 }: RecipeCardProps) {
   return (
-    <Card className="m-5">
-      {photo && (
-        <Card.Img
-          variant="top"
-          src={photo || "https://via.placeholder.com/150"}
-          alt={name}
-        />
-      )}
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        <ButtonGroup role="group" className="card-btn">
-          <EditRecipe
-            photo={photo}
-            name={name}
-            description={description}
-            onEdit={onEdit}
-            id={0}
+    <div id="card-body">
+      <Card style={{ width: "25rem" }}>
+        {photo && (
+          <Card.Img
+            variant="top"
+            src={photo || "https://via.placeholder.com/150"}
+            alt={name}
           />
-          <DeleteRecipe id={id} onDelete={onDelete} />
-        </ButtonGroup>
-      </Card.Body>
-    </Card>
+        )}
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>{description}</Card.Text>
+          <ButtonGroup role="group" className="card-btn">
+            <EditRecipe
+              photo={photo}
+              name={name}
+              description={description}
+              onEdit={onEdit}
+              id={id}
+            />
+            <DeleteRecipe id={id} onDelete={onDelete} />
+          </ButtonGroup>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }

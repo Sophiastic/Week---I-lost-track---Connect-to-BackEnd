@@ -3,13 +3,14 @@
   padding: 0;
 }
 
-.card-container {
+#card-body {
   background-color: rgb(20, 20, 18);
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 35rem;
+  width: 26rem;
+  margin: 2rem;
   color: white;
   padding: 7px;
   border-radius: 1rem;

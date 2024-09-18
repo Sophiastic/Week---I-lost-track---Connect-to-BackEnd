@@ -15,8 +15,7 @@ export default function RecipeApp() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   useEffect(() => {
     fetchGet();
-  }),
-    [];
+  }, []);
 
   const fetchGet = async () => {
     try {
@@ -87,7 +86,7 @@ export default function RecipeApp() {
   };
 
   return (
-    <div className="container bg-secondary bg-opacity-25">
+    <div className="container bg-secondary bg-opacity-25" id="bodyView">
       <TopBar onAddRecipe={fetchPost} />
       <h3 className="text-center">Recipes</h3>
       <div className="container" id="recipeHolder">

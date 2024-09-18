@@ -86,7 +86,7 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
           </div>
           {/* description */}
           <div>
-            <label>Description:</label>
+            <label id="idLabel">Description:</label>
             <textarea
               value={addDescription}
               onChange={(e) => setAddDescription(e.target.value)}
