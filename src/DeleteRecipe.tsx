@@ -17,7 +17,11 @@ export default function DeleteRecipe({ id, onDelete }: DeleteRecipeProps) {
   return (
     <div>
       <Button
-        variant="btn btn-outline-danger btn-sm p-2 m-2"
+        variant="btn"
+        style={{
+          backgroundImage: "url('./assets/trash-can-solid.svg')",
+          backgroundSize: "cover",
+        }}
         onClick={handleDeleteId}
       >
         Delete Recipe

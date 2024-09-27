@@ -3,16 +3,21 @@ import TopBar from "./TopBar";
 import { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
 import "./App.css";
+import BackOfCard from "./BackOfCard";
 
 type Recipe = {
   id: number;
   name: string;
   photo: string;
   description: string;
+  instructions: string;
+  ingredients: string;
 };
 //the main app consists of a top banner with the add recipe button. then it holds a card for every recipe
 export default function RecipeApp() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [flip, setFlip] = useState(false);
+
   useEffect(() => {
     fetchGet();
   }, []);
@@ -85,23 +90,48 @@ export default function RecipeApp() {
     }
   };
 
+  const handleFlip = (id: number) => {
+    setFlip(flip === id ? null : id);
+  };
+
   return (
     <div className="container bg-secondary bg-opacity-25" id="bodyView">
       <TopBar onAddRecipe={fetchPost} />
+
       <h3 className="text-center">Recipes</h3>
-      <div className="container" id="recipeHolder">
+
+      <div className="recipeHolder">
         {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            id={recipe.id}
-            photo={recipe.photo}
-            name={recipe.name}
-            description={recipe.description}
-            onEdit={fetchEdit}
-            onDelete={fetchDelete}
-          ></RecipeCard>
+          <>
+            <div
+              className={`card ${flip === recipe.id ? "flip" : ""}`}
+              key={recipe.id}
+            >
+              {flip === recipe.id ? (
+                <BackOfCard
+                  ingredients={recipe.ingredients}
+                  instructions={recipe.instructions}
+                />
+              ) : (
+                <RecipeCard
+                  id={recipe.id}
+                  photo={recipe.photo}
+                  name={recipe.name}
+                  description={recipe.description}
+                  onEdit={fetchEdit}
+                  onDelete={fetchDelete}
+                  onFlip={() => handleFlip(recipe.id)}
+                />
+              )}
+            </div>
+          </>
         ))}
       </div>
     </div>
   );
+}
+
+{
+  /*editInstructions = {editInstructions}
+          deleteInstructions = {deleteInstructions}*/
 }

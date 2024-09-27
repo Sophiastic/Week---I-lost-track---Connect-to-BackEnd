@@ -1,12 +1,13 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Button, Modal } from "react-bootstrap";
 
 type Recipe = {
   id: number;
   name: string;
   photo: string;
   description: string;
+  ingredients: string;
+  instructions: string;
 };
 
 type EditRecipesProp = {
@@ -14,6 +15,8 @@ type EditRecipesProp = {
   photo: string;
   name: string;
   description: string;
+  ingredients: string;
+  instructions: string;
   onEdit: (updatedRecipe: Recipe) => void;
 };
 
@@ -24,12 +27,17 @@ export default function editRecipe({
   photo,
   name,
   description,
+  instructions,
+  ingredients,
   onEdit,
 }: EditRecipesProp) {
   //update every portion individually
   const [updatePhoto, setUpdatePhoto] = useState(photo);
   const [updateName, setUpdateName] = useState(name);
   const [updateDescription, setUpdateDescription] = useState(description);
+  const [updateIngredients, setUpdateIngredients] = useState(ingredients);
+  const [updateInstructions, setUpdateInstructions] = useState(instructions);
+
   const [showModal, setModal] = useState(false);
 
   const handleClose = () => setModal(false);
@@ -41,6 +49,8 @@ export default function editRecipe({
       name: updateName,
       photo: updatePhoto,
       description: updateDescription,
+      instructions: updateInstructions,
+      ingredients: updateIngredients,
     };
 
     onEdit(updatedRecipe);
@@ -85,8 +95,23 @@ export default function editRecipe({
               onChange={(e) => setUpdateDescription(e.target.value)}
             ></textarea>
           </div>
+          <div>
+            {/*ingredients*/}
+            <label>Ingredients: </label>
+            <textarea
+              value={updateIngredients}
+              onChange={(e) => setUpdateIngredients(e.target.value)}
+            ></textarea>
+          </div>
+          {/*instructions*/}
+          <div>
+            <label>Instructions: </label>
+            <textarea
+              value={updateInstructions}
+              onChange={(e) => setUpdateInstructions(e.target.value)}
+            ></textarea>
+          </div>
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

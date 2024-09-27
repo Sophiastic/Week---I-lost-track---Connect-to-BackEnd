@@ -5,9 +5,12 @@ import Modal from "react-bootstrap/Modal";
 
 export type AddRecipesProps = {
   onAddRecipe: (newRecipe: {
+    id: number;
     photo: string;
     name: string;
     description: string;
+    ingredients: string;
+    instructions: string;
   }) => void;
 };
 
@@ -15,11 +18,13 @@ type ID = {
   id: number;
   name: string;
 };
-
+//all portions of the recipe being added in one piece, but showing up on both sides
 export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
   const [addPhoto, setAddPhoto] = useState("");
   const [addName, setAddName] = useState("");
   const [addDescription, setAddDescription] = useState("");
+  const [addIngredients, setAddIngredients] = useState("");
+  const [addInstructions, setAddInstructions] = useState("");
   const [showModal, setModal] = useState(false);
   const [addId, setAddId] = useState<ID[]>([]);
   let nextId = 1;
@@ -36,9 +41,12 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
 
   const handleSave = () => {
     onAddRecipe({
+      id: addId,
       photo: addPhoto,
       name: addName,
       description: addDescription,
+      ingredients: addIngredients,
+      instructions: addInstructions,
     });
     handleAddId();
     handleClose();
@@ -68,7 +76,7 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
 
           {/* photo */}
           <div>
-            <label>Photo URL:</label>
+            <label>Photo URL: </label>
             <input
               type="text"
               value={addPhoto}
@@ -86,10 +94,26 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
           </div>
           {/* description */}
           <div>
-            <label id="idLabel">Description:</label>
+            <label id="idLabel">Description: </label>
             <textarea
               value={addDescription}
               onChange={(e) => setAddDescription(e.target.value)}
+            ></textarea>
+          </div>
+          {/* ingredients */}
+          <div>
+            <label>Ingredients: </label>
+            <textarea
+              value={addIngredients}
+              onChange={(e) => setAddIngredients(e.target.value)}
+            ></textarea>
+          </div>
+          {/* Instructions */}
+          <div>
+            <label> Instructions: </label>
+            <textarea
+              value={addInstructions}
+              onChange={(e) => setAddInstructions(e.target.value)}
             ></textarea>
           </div>
         </Modal.Body>
