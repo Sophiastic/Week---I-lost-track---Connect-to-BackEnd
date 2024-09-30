@@ -1,14 +1,6 @@
 {
   "recipes": [
     {
-      "id": 1,
-      "name": "Chile Relleno",
-      "photo": "./src/assets/chilerelleno.jpg",
-      "description": "This is a mexican food. Made with poblano peppers stuffed with cheese. It's then dipped in whipped egg whites and fried. Served in a red salsa and your favorite sides or toppings! And its delicious :)",
-      "ingredients": "4 Poblano Peppers, 1.5 cups of cheese, 3 eggs, oil ",
-      "instructions": "Place the peppers in an air fryer at 400°F for 5 minutes. If charred, transfer them to a plastic bag (or Tupperware) to sweat for 20 minutes. Beat the egg whites until stiff peaks form, then fold in the egg yolks. Heat oil for frying. Peel the peppers, stuff them with cheese, and secure them with toothpicks. Dip the peppers in flour, then coat them in the egg mixture, and fry. Serve with tomato salsa and sides of your choice."
-    },
-    {
       "id": 2,
       "photo": "./src/assets/pupusas.jpg",
       "name": "Pupusas",
@@ -17,12 +9,20 @@
       "instructions": "Mix all the dry ingredients. Work in the butter with your hands, then add all the hot water and mix. If more water is needed for consistency, slowly add the cool water. Once the dough is set, form it into balls and fill them with the fillings of your choice. Gently shape each ball into a disk and cook. Serve with salsa and slaw."
     },
     {
+      "id": [],
+      "photo": "./src/assets/chilerelleno.jpg",
+      "name": "Chile Relleno",
+      "description": "Food",
+      "ingredients": "Ingredients",
+      "instructions": "instructions"
+    },
+    {
       "id": 3,
-      "name": "Mango Claw",
+      "name": "White Claw",
       "photo": "./src/assets/mangoclaw.jpg",
-      "description": "This is a mango Whiteclaw that was dipped in chamoy sauce and tajin for extra umph.",
-      "ingredients": "Mango white claw(s), chamoy, tajin",
-      "instructions": "Grab your white claw, pineapple also works. Then dip the rim in the chamoy sauce followed by the tajin. Enjoy."
+      "description": "A delicious drink! ",
+      "instructions": "Dip your claw into the chamoy sauce then Tajin. Crack open and enjoy!!",
+      "ingredients": "Mango whiteclaw, but pineapple also works! Some Tajin and your favorite chamoy sauce. "
     }
   ]
 }

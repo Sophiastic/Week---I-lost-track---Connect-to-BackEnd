@@ -1,6 +1,10 @@
-/* Okay. The vision is to have cards displayed in the main page. There will be an 'add recipe' button on the top of the page. Each recipe will be shown with a delete and edit button. the end. */
+/* Okay. The vision is to have cards displayed in the main page. There will be an 'add recipe' button on the top of the page. Each recipe will be shown with a delete and edit button. the end. 
+
+
+A new card was added to hold the instructions and ingredients.*/
 import TopBar from "./TopBar";
 import { useState, useEffect } from "react";
+import { Row, Col } from "react-bootstrap";
 import RecipeCard from "./RecipeCard";
 import "./App.css";
 import BackOfCard from "./BackOfCard";
@@ -16,11 +20,12 @@ type Recipe = {
 //the main app consists of a top banner with the add recipe button. then it holds a card for every recipe
 export default function RecipeApp() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
     fetchGet();
   }, []);
+
+  //all of our CRUD operations
 
   const fetchGet = async () => {
     try {
@@ -61,7 +66,7 @@ export default function RecipeApp() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedRecipe), // Your item can go here instead of making the object inline.
+          body: JSON.stringify(updatedRecipe),
         }
       );
 
@@ -90,10 +95,6 @@ export default function RecipeApp() {
     }
   };
 
-  const handleFlip = (id: number) => {
-    setFlip(flip === id ? null : id);
-  };
-
   return (
     <div className="container bg-secondary bg-opacity-25" id="bodyView">
       <TopBar onAddRecipe={fetchPost} />
@@ -102,36 +103,33 @@ export default function RecipeApp() {
 
       <div className="recipeHolder">
         {recipes.map((recipe) => (
-          <>
-            <div
-              className={`card ${flip === recipe.id ? "flip" : ""}`}
-              key={recipe.id}
-            >
-              {flip === recipe.id ? (
-                <BackOfCard
-                  ingredients={recipe.ingredients}
-                  instructions={recipe.instructions}
-                />
-              ) : (
-                <RecipeCard
-                  id={recipe.id}
-                  photo={recipe.photo}
-                  name={recipe.name}
-                  description={recipe.description}
-                  onEdit={fetchEdit}
-                  onDelete={fetchDelete}
-                  onFlip={() => handleFlip(recipe.id)}
-                />
-              )}
-            </div>
-          </>
+          <div className="bothCards">
+            {/* The row and col portions are so that the cards show up next to eachother instead of one on top of the other.*/}
+            <Row>
+              <Col md={5}>
+                <div className="front">
+                  <RecipeCard
+                    id={recipe.id}
+                    photo={recipe.photo}
+                    name={recipe.name}
+                    description={recipe.description}
+                    onEdit={fetchEdit}
+                    onDelete={fetchDelete}
+                  />
+                </div>
+              </Col>
+              <Col md={5}>
+                <div className="back">
+                  <BackOfCard
+                    ingredients={recipe.ingredients}
+                    instructions={recipe.instructions}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </div>
         ))}
       </div>
     </div>
   );
-}
-
-{
-  /*editInstructions = {editInstructions}
-          deleteInstructions = {deleteInstructions}*/
 }

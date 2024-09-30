@@ -21,6 +21,7 @@ type EditRecipesProp = {
 };
 
 /*okay so i want to update only the name and description. i will create a new object copying in the data from app.tsx. when the edit button is pressed, a little form will open to update that info. */
+
 //beginning of edit function
 export default function editRecipe({
   id,
@@ -71,7 +72,7 @@ export default function editRecipe({
         <Modal.Body>
           {/* photo */}
           <div>
-            <label>Photo URL:</label>
+            <label>Photo URL: </label>
             <input
               type="text"
               value={updatePhoto}

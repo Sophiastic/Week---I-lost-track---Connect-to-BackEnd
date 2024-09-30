@@ -15,6 +15,8 @@ type RecipeCardProps = {
   photo: string;
   name: string;
   description: string;
+  ingredients: string;
+  instructions: string;
   onDelete: (id: number) => void;
   onEdit: (updatedRecipe: Recipe) => void;
   onFlip: () => void;
@@ -26,13 +28,14 @@ export default function RecipeCard({
   photo,
   name,
   description,
+  ingredients,
+  instructions,
   onDelete,
   onEdit,
-  onFlip,
 }: RecipeCardProps) {
   return (
     <div id="card-body">
-      <Card style={{ width: "25rem" }} onClick={onFlip}>
+      <Card style={{ width: "25rem" }}>
         <div className="front" /*onClick = {() => setFlip)(!flip)}*/>
           {photo && (
             <Card.Img
@@ -44,7 +47,10 @@ export default function RecipeCard({
           <Card.Body /*onClick={HandleFlip} */>
             <Card.Title>{name}</Card.Title>
             <Card.Text>{description}</Card.Text>
-            <ButtonGroup role="group" className="card-btn">
+            <ButtonGroup
+              className="card-btn"
+              style={{ width: "100%", justifyContent: "space-between" }}
+            >
               <EditRecipe
                 photo={photo}
                 name={name}
@@ -57,17 +63,6 @@ export default function RecipeCard({
               <DeleteRecipe id={id} onDelete={onDelete} />
             </ButtonGroup>
           </Card.Body>
-        </div>
-        <div className="back" /*onClick = {() => setFlip)(!flip)}*/>
-          {/*
-        <Card.Body onClick={HandleFlip}>
-        <Card.Title>Instructions</Card.Title>
-        <Card.Text>{instructions}</Card.Text>
-        
-        </Card.Body>
-
-
-        */}
         </div>
       </Card>
     </div>

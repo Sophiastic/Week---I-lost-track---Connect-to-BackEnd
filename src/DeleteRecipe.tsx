@@ -8,20 +8,16 @@ type DeleteRecipeProps = {
 //beginning of delete funtions
 export default function DeleteRecipe({ id, onDelete }: DeleteRecipeProps) {
   const [deleteId, setDeleteId] = useState<number[]>([]);
+
   const handleDeleteId = () => {
     setDeleteId([...deleteId, id]);
     onDelete(id);
   };
 
-  //setRecipes(recipes.filter((r) => r.id !== onDelete));
   return (
     <div>
       <Button
-        variant="btn"
-        style={{
-          backgroundImage: "url('./assets/trash-can-solid.svg')",
-          backgroundSize: "cover",
-        }}
+        variant="btn btn-outline-danger btn-sm p-2 m-2"
         onClick={handleDeleteId}
       >
         Delete Recipe
@@ -29,6 +25,3 @@ export default function DeleteRecipe({ id, onDelete }: DeleteRecipeProps) {
     </div>
   );
 }
-
-/*const deleteRecipe = (idToDelete: number) => {
-  };*/

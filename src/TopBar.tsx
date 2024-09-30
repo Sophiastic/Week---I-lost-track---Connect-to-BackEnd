@@ -3,7 +3,6 @@ import "./App.css";
 
 type TopBarProps = {
   onAddRecipe: (newRecipe: {
-    id: number;
     photo: string;
     name: string;
     description: string;

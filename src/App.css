@@ -7,10 +7,10 @@
   background-color: rgb(20, 20, 18);
   justify-content: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   width: 26rem;
-  margin: 4rem;
+  margin: 2rem;
   color: white;
   padding: 7px;
   border-radius: 1rem;
@@ -23,4 +23,37 @@
 #recipeHolder {
   justify-content: center;
   display: grid;
+}
+
+.front {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.back {
+  margin: 1rem;
+  padding: 5rem;
+}
+
+.ingredients {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2rem;
+  font-size: large;
+}
+
+.instructions {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2rem;
+  font-size: medium;
+}
+
+label {
+  margin: 4px;
+  padding: 5px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: large;
+}
+
+textarea {
+  font-family: Arial, Helvetica, sans-serif;
 }

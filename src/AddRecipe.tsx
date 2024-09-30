@@ -1,11 +1,11 @@
 //beginning of my add recipe button
 import { useState } from "react";
+import { ButtonGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 export type AddRecipesProps = {
   onAddRecipe: (newRecipe: {
-    id: number;
     photo: string;
     name: string;
     description: string;
@@ -18,7 +18,7 @@ type ID = {
   id: number;
   name: string;
 };
-//all portions of the recipe being added in one piece, but showing up on both sides
+//all portions of the recipe being added in one piece, but showing up on both cards
 export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
   const [addPhoto, setAddPhoto] = useState("");
   const [addName, setAddName] = useState("");
@@ -41,7 +41,6 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
 
   const handleSave = () => {
     onAddRecipe({
-      id: addId,
       photo: addPhoto,
       name: addName,
       description: addDescription,
@@ -64,16 +63,6 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
         </Modal.Header>
 
         <Modal.Body>
-          {/* id 
-          <div>
-            <label>ID:</label>
-            <input
-              type="number"
-              value={addId}
-              onChange={(e) => newId(Number(e.target.value))}
-            />
-          </div>*/}
-
           {/* photo */}
           <div>
             <label>Photo URL: </label>
@@ -119,12 +108,17 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save Changes
-          </Button>
+          <ButtonGroup
+            className="card-btn"
+            style={{ width: "50%", justifyContent: "space-between" }}
+          >
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSave}>
+              Save Changes
+            </Button>
+          </ButtonGroup>
         </Modal.Footer>
       </Modal>
     </>
