@@ -4,22 +4,12 @@ import { ButtonGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export type AddRecipesProps = {
-  onAddRecipe: (newRecipe: {
-    photo: string;
-    name: string;
-    description: string;
-    ingredients: string;
-    instructions: string;
-  }) => void;
-};
-
 type ID = {
   id: number;
   name: string;
 };
 //all portions of the recipe being added in one piece, but showing up on both cards
-export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
+export default function AddRecipe() {
   const [addPhoto, setAddPhoto] = useState("");
   const [addName, setAddName] = useState("");
   const [addDescription, setAddDescription] = useState("");
@@ -31,6 +21,7 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
 
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
+
   const handleAddId = () => {
     const newId: ID = {
       id: nextId++,
@@ -40,15 +31,41 @@ export default function AddRecipe({ onAddRecipe }: AddRecipesProps) {
   };
 
   const handleSave = () => {
-    onAddRecipe({
+    handleAddId();
+    const newRecipe = {
+      id: addId,
       photo: addPhoto,
       name: addName,
       description: addDescription,
-      ingredients: addIngredients,
+      ingredienst: addIngredients,
       instructions: addInstructions,
-    });
-    handleAddId();
+    };
+    fetchPost(newRecipe);
     handleClose();
+  };
+
+  const fetchPost = async (newRecipe: {
+    id: ID[];
+    photo: string;
+    name: string;
+    description: string;
+    ingredienst: string;
+    instructions: string;
+  }) => {
+    try {
+      let response = await fetch("http://localhost:3000/recipes", {
+        method: "POST",
+        body: JSON.stringify(newRecipe),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save the recipe");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
