@@ -17,8 +17,6 @@ type RecipeCardProps = {
   photo: string;
   name: string;
   description: string;
-  ingredients: string;
-  instructions: string;
   onEdit: (updatedRecipe: Recipe) => void;
   onDelete: (id: number) => void;
 };
@@ -29,16 +27,14 @@ export default function RecipeCard({
   photo,
   name,
   description,
-  ingredients,
-  instructions,
   onDelete,
   onEdit,
 }: RecipeCardProps) {
   return (
     <>
       <h3 className="text-center">Recipes</h3>
-      <div id="card-body">
-        <Card style={{ width: "25rem" }}>
+      <div className="card-body">
+        <Card>
           <div className="front">
             {photo && (
               <Card.Img
@@ -48,8 +44,10 @@ export default function RecipeCard({
               />
             )}
             <Card.Body>
-              <Card.Title>{name}</Card.Title>
-              <Card.Text>{description}</Card.Text>
+              <Card.Title>{name || "No information available!"}</Card.Title>
+              <Card.Text>
+                {description || "No information available!"}
+              </Card.Text>
               <ButtonGroup
                 className="card-btn"
                 style={{ width: "100%", justifyContent: "space-between" }}
@@ -58,10 +56,10 @@ export default function RecipeCard({
                   photo={photo}
                   name={name}
                   description={description}
-                  ingredients={ingredients}
-                  instructions={instructions}
                   onEdit={onEdit}
                   id={id}
+                  ingredients={""}
+                  instructions={""}
                 />
                 <DeleteRecipe id={id} onDelete={onDelete} />
               </ButtonGroup>

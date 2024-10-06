@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./App.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavItem from "react-bootstrap/NavItem";
@@ -18,23 +18,30 @@ type Recipe = {
 };
 
 export default function Root() {
+  const location = useLocation();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-
-  //all of our CRUD operations
+  const [error, setError] = useState<string | null>(null);
+  const viewType = location.pathname === "/dishes" ? "cards" : "back";
 
   useEffect(() => {
-    fetchRecipes();
+    fetchGet();
   }, []);
 
-  const fetchRecipes = async () => {
+  const fetchGet = async () => {
     try {
       let response = await fetch("http://localhost:3000/recipes");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       let data = await response.json();
-      setRecipes(data); // Do something with the data here!
+      setRecipes(data);
     } catch (error) {
       console.error("Error:", error);
+      setError("Failed to fetch recipes.");
     }
   };
+
+  //all of our CRUD operations
 
   const fetchEdit = async (updatedRecipe: Recipe) => {
     try {
@@ -48,23 +55,14 @@ export default function Root() {
           body: JSON.stringify(updatedRecipe),
         }
       );
-
-      if (response.ok) {
-        fetchRecipes();
+      if (!response.ok) {
+        console.error("Failed to update recipe!");
       } else {
-        console.error("Failed to update recipe! 😢");
+        fetchGet();
       }
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
-  const handleEditRecipe = (updatedRecipe: Recipe) => {
-    setRecipes(
-      recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      )
-    );
   };
 
   const fetchDelete = async (id: number) => {
@@ -72,10 +70,10 @@ export default function Root() {
       let response = await fetch(`http://localhost:3000/recipes/${id}`, {
         method: "DELETE",
       });
-      if (response.ok) {
-        fetchRecipes(); // Refresh the list
-      } else {
+      if (!response.ok) {
         console.error("Failed to delete recipe! 😢");
+      } else {
+        fetchGet();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -89,28 +87,31 @@ export default function Root() {
           <Dropdown as={NavItem}>
             <Dropdown.Toggle as={NavLink}>Click for more!</Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
-                {" "}
-                <Link to="/"> Dishes </Link>
+              <Dropdown.Item as={Link} to="/dishes">
+                Dishes
               </Dropdown.Item>
 
-              <Dropdown.Item>
-                {" "}
-                <Link to="/addRecipe">Add a Recipe</Link>
+              <Dropdown.Item as={Link} to="/instructions">
+                Instructions
               </Dropdown.Item>
 
-              <Dropdown.Item>
-                {" "}
-                <Link to="/recipe/:id/back">Instructions</Link>
+              <Dropdown.Item as={Link} to="/addRecipe">
+                Add a Recipe
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </nav>
-        <RecipeCardList
-          recipes={recipes.length > 0 ? recipes : []}
-          onDelete={fetchDelete}
-          onEdit={fetchEdit}
-        ></RecipeCardList>
+        {error && <div className="error-message">{error}</div>}
+        {(location.pathname === "/" ||
+          location.pathname === "/dishes" ||
+          location.pathname === "/instructions") && (
+          <RecipeCardList
+            recipes={recipes}
+            onDelete={fetchDelete}
+            onEdit={fetchEdit}
+            viewType={viewType}
+          />
+        )}
         <Outlet />
       </div>
     </>

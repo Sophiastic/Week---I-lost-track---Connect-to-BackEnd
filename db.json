@@ -1,7 +1,7 @@
 {
   "recipes": [
     {
-      "id": 2,
+      "id": 1,
       "photo": "./src/assets/pupusas.jpg",
       "name": "Pupusas",
       "description": "This is Salvadorian food. It's made using corn flour and stuffed with your favorite fillin gs. Served with a slaw and red salsa along with any additional toppings you'd like. ",
@@ -9,12 +9,12 @@
       "instructions": "Mix all the dry ingredients. Work in the butter with your hands, then add all the hot water and mix. If more water is needed for consistency, slowly add the cool water. Once the dough is set, form it into balls and fill them with the fillings of your choice. Gently shape each ball into a disk and cook. Serve with salsa and slaw."
     },
     {
-      "id": [],
+      "id": 2,
+      "name": "Chile Rellenos",
       "photo": "./src/assets/chilerelleno.jpg",
-      "name": "Chile Relleno",
-      "description": "Food",
-      "ingredients": "Ingredients",
-      "instructions": "instructions"
+      "description": "Stuffed peppers! ",
+      "ingredients": "",
+      "instructions": ""
     },
     {
       "id": 3,

@@ -4,52 +4,46 @@ import { ButtonGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-type ID = {
-  id: number;
-  name: string;
-};
 //all portions of the recipe being added in one piece, but showing up on both cards
-export default function AddRecipe() {
+type AddRecipeProps = {
+  onAddRecipe: (newRecipe: {
+    photo: string;
+    name: string;
+    description: string;
+    ingredients: string;
+    instructions: string;
+  }) => void;
+};
+export default function AddRecipe({ onAddRecipe }: AddRecipeProps) {
   const [addPhoto, setAddPhoto] = useState("");
   const [addName, setAddName] = useState("");
   const [addDescription, setAddDescription] = useState("");
   const [addIngredients, setAddIngredients] = useState("");
   const [addInstructions, setAddInstructions] = useState("");
   const [showModal, setModal] = useState(false);
-  const [addId, setAddId] = useState<ID[]>([]);
-  let nextId = 1;
 
   const handleClose = () => setModal(false);
   const handleShow = () => setModal(true);
-
-  const handleAddId = () => {
-    const newId: ID = {
-      id: nextId++,
-      name: `${nextId}`,
-    };
-    setAddId([...addId, newId]);
-  };
-
-  const handleSave = () => {
-    handleAddId();
+  const handleSave = async () => {
     const newRecipe = {
-      id: addId,
       photo: addPhoto,
       name: addName,
       description: addDescription,
-      ingredienst: addIngredients,
+      ingredients: addIngredients,
       instructions: addInstructions,
     };
-    fetchPost(newRecipe);
-    handleClose();
+    const addedRecipe = await fetchPost(newRecipe);
+    if (addedRecipe) {
+      onAddRecipe(addedRecipe);
+      handleClose();
+    }
   };
 
   const fetchPost = async (newRecipe: {
-    id: ID[];
     photo: string;
     name: string;
     description: string;
-    ingredienst: string;
+    ingredients: string;
     instructions: string;
   }) => {
     try {
@@ -63,8 +57,10 @@ export default function AddRecipe() {
       if (!response.ok) {
         throw new Error("Failed to save the recipe");
       }
+      return await response.json();
     } catch (error) {
       console.error("Error:", error);
+      return null;
     }
   };
 

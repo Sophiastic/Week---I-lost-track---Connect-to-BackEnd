@@ -1,13 +1,6 @@
 import RecipeCard from "./RecipeCard";
+import BackOfCard from "./BackOfCard";
 
-//type Recipe = {
-//  id: number;
-//  name: string;
-//  photo: string;
-//  description: string;
-//  ingredients: string;
-//  instructions: string;
-//};
 type Recipe = {
   id: number;
   photo: string;
@@ -20,34 +13,47 @@ type RecipeCardListProps = {
   recipes: Recipe[]; // Recipes passed down from the parent
   onDelete: (id: number) => void;
   onEdit: (updatedRecipe: Recipe) => void;
+  viewType: "cards" | "back";
 };
 
-const RecipeCardList: React.FC<RecipeCardListProps> = ({
+export default function RecipeCardList({
   recipes,
   onDelete,
   onEdit,
-}) => {
-  if (recipes.length < 1) {
-    return <div>❌ No recipes available. ❌</div>; // Display a message or a placeholder
+  viewType,
+}: RecipeCardListProps) {
+  if (!recipes || recipes.length === 0) {
+    return <div>❌ No recipes available. ❌</div>;
   }
 
   return (
     <div className="recipeHolder">
-      {recipes.map((recipe) => (
-        <RecipeCard
-          key={recipe.id}
-          id={recipe.id}
-          photo={recipe.photo}
-          name={recipe.name}
-          description={recipe.description}
-          ingredients=""
-          instructions=""
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
-      ))}
+      {recipes.map((recipe) => {
+        if (viewType === "cards") {
+          return (
+            <RecipeCard
+              key={recipe.id}
+              id={recipe.id}
+              photo={recipe.photo}
+              name={recipe.name}
+              description={recipe.description}
+              onDelete={onDelete}
+              onEdit={onEdit}
+            />
+          );
+        } else if (viewType === "back") {
+          return (
+            <BackOfCard
+              key={recipe.id}
+              id={recipe.id}
+              ingredients={recipe.ingredients}
+              instructions={recipe.instructions}
+              onEdit={onEdit}
+            />
+          );
+        }
+        return null;
+      })}
     </div>
   );
-};
-
-export default RecipeCardList;
+}

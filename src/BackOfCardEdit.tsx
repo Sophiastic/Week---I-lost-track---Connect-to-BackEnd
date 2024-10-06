@@ -10,30 +10,26 @@ type Recipe = {
   instructions: string;
 };
 
-type EditRecipesProp = {
+type BackEditRecipesProp = {
   id: number;
-  photo: string;
-  name: string;
-  description: string;
   ingredients: string;
   instructions: string;
   onEdit: (updatedRecipe: Recipe) => void;
 };
 
-/*okay so i want to update only the name and description. i will create a new object copying in the data from app.tsx. when the edit button is pressed, a little form will open to update that info. */
+/*okay so i want to update only the name and description. i will create a new object copying in the data from root.tsx. when the edit button is pressed, a little form will open to update that info. */
 
 //beginning of edit function
-export default function EditRecipe({
+export default function BackEditRecipe({
   id,
-  photo,
-  name,
-  description,
+  instructions,
+  ingredients,
   onEdit,
-}: EditRecipesProp) {
+}: BackEditRecipesProp) {
   //update every portion individually
-  const [updatePhoto, setUpdatePhoto] = useState(photo);
-  const [updateName, setUpdateName] = useState(name);
-  const [updateDescription, setUpdateDescription] = useState(description);
+
+  const [updateIngredients, setUpdateIngredients] = useState(ingredients);
+  const [updateInstructions, setUpdateInstructions] = useState(instructions);
 
   const [showModal, setModal] = useState(false);
 
@@ -43,11 +39,11 @@ export default function EditRecipe({
   const handleSave = () => {
     const updatedRecipe: Recipe = {
       id,
-      name: updateName,
-      photo: updatePhoto,
-      description: updateDescription,
-      ingredients: "",
-      instructions: "",
+      instructions: updateInstructions,
+      ingredients: updateIngredients,
+      name: "",
+      photo: "",
+      description: "",
     };
 
     onEdit(updatedRecipe);
@@ -66,30 +62,20 @@ export default function EditRecipe({
         </Modal.Header>
 
         <Modal.Body>
-          {/* photo */}
           <div>
-            <label>Photo URL: </label>
-            <input
-              type="text"
-              value={updatePhoto}
-              onChange={(e) => setUpdatePhoto(e.target.value)}
-            ></input>
-          </div>
-          {/* name */}
-          <div>
-            <label>Name: </label>
-            <input
-              type="text"
-              value={updateName}
-              onChange={(e) => setUpdateName(e.target.value)}
-            ></input>
-          </div>
-          {/* description */}
-          <div>
-            <label>Description:</label>
+            {/*ingredients*/}
+            <label>Ingredients: </label>
             <textarea
-              value={updateDescription}
-              onChange={(e) => setUpdateDescription(e.target.value)}
+              value={updateIngredients}
+              onChange={(e) => setUpdateIngredients(e.target.value)}
+            ></textarea>
+          </div>
+          {/*instructions*/}
+          <div>
+            <label>Instructions: </label>
+            <textarea
+              value={updateInstructions}
+              onChange={(e) => setUpdateInstructions(e.target.value)}
             ></textarea>
           </div>
         </Modal.Body>

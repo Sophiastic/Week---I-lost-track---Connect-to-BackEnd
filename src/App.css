@@ -3,36 +3,28 @@
   padding: 0;
 }
 
-#card-body {
+.card-body {
   background-color: rgb(20, 20, 18);
+  color: white;
+  box-shadow: 0px 10px 8px #797878;
   justify-content: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  width: 26rem;
+  width: 30rem;
   margin: 2rem;
-  color: white;
   padding: 7px;
   border-radius: 1rem;
-  box-shadow: 0px 10px 8px #797878;
+  text-align: center;
 }
+
 .nav {
   width: 100%;
 }
 
-#recipeHolder {
-  justify-content: center;
-  display: grid;
-}
-
-.front {
-  margin: 1rem;
-  padding: 1rem;
-}
-
-.back {
-  margin: 1rem;
-  padding: 5rem;
+.recipeHolder {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .ingredients {

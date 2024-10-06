@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root.tsx";
-import RecipeCardList from "./RecipeCardList.tsx";
 import BackOfCard from "./BackOfCard.tsx";
 import AddRecipe from "./AddRecipe.tsx";
 import RecipeCard from "./RecipeCard.tsx";
@@ -15,20 +14,32 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: "/",
-        element: <RecipeCardList />,
-      },
-      {
-        path: "/recipe/:id",
-        element: <RecipeCard />,
-      },
-      {
         path: "/addRecipe",
-        element: <AddRecipe />,
+        element: <AddRecipe onAddRecipe={() => {}} />,
       },
       {
-        path: "/recipe/:id/back",
-        element: <BackOfCard />,
+        path: "/dishes",
+        element: (
+          <RecipeCard
+            id={0}
+            photo={""}
+            name={""}
+            description={""}
+            onDelete={() => {}}
+            onEdit={() => {}}
+          />
+        ),
+      },
+      {
+        path: "/instructions",
+        element: (
+          <BackOfCard
+            id={0}
+            ingredients={""}
+            instructions={""}
+            onEdit={() => {}}
+          />
+        ),
       },
     ],
   },
